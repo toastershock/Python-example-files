@@ -13,7 +13,6 @@ from dash import dcc, html
 from dash.dependencies import Input, Output
 
 # Load the data
-# Assuming the file 'D.gahi_sampling.csv' contains columns: 'latitude', 'longitude', 'length', 'weight', 'sex', 'maturity'
 data = pd.read_csv("D.gahi_sampling.csv")
 
 # Create a map centered around the Falkland Islands (latitude: -51.7, longitude: -59.0)
@@ -36,18 +35,18 @@ for _, row in data.iterrows():
 sampling_map.save("falkland_sampling_map.html")
 print("Interactive map saved as 'falkland_sampling_map.html'.")
 
-# Initialize Dash app
+
 app = dash.Dash(__name__)
 app.title = "Squid Data Dashboard"
 
-# Define the layout of the app
 app.layout = html.Div([
     html.H1("Falkland Islands Squid Data Dashboard", style={"textAlign": "center"}),
 
     # Map display
     html.Iframe(id="map", srcDoc=open("falkland_sampling_map.html", "r").read(), width="100%", height="600"),
 
-    # Dropdown for selecting plots
+
+
     html.Div([
         html.Label("Select Analysis Type:"),
         dcc.Dropdown(
@@ -69,7 +68,7 @@ app.layout = html.Div([
     html.Div(id="summary-table")
 ])
 
-# Define callback for updating plots and tables
+
 @app.callback(
     [Output("analysis-plot", "figure"), Output("summary-table", "children")],
     [Input("analysis-type", "value")]
